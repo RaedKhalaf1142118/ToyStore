@@ -40,6 +40,7 @@
 			displayEmptyRow();
 		}
 	}
+	
 
 	function getProductAvailability($product){
 		if($product['availableAmount'] != 0){

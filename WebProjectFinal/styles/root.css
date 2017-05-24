@@ -6,3 +6,7 @@ body{
 a{
 	text-decoration: none;
 }
+
+input:focus{
+	background-color: #cbe4ec;
+}

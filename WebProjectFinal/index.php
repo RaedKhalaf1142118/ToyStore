@@ -5,6 +5,8 @@
 	include 'components/search.php';
 	include 'components/addProduct.php';
 	include 'components/productDescription.php';
+	include 'components/logout.php';
+	include 'components/register.php';
 
 	$customerClassName = '';
 	$productClassName = '';
@@ -57,6 +59,7 @@
 	<link rel="stylesheet" type="text/css" href="styles/search.css">
 	<link rel="stylesheet" type="text/css" href="styles/addProduct.css">
 	<link rel="stylesheet" type="text/css" href="styles/productDescription.css">
+	<link rel="stylesheet" type="text/css" href="styles/register.css">
 </head>
 <body>
 	<header class="main-header-container">
@@ -89,12 +92,29 @@
 		<hr>
 		<li id="customerSubNavBar" style="display:<?php echo $customerClassName==''?'none':'block'; ?>">
 			<ul>
-				<a href="index.php?display=login">
-					<li class="sub-nav-item <?php echo $loginClassName; ?>" id="login" onclick="activate('login')">
-						<img src="resources/login_icon.png"  class="nav-bar-img">
-						Login
-					</li>
-				</a>
+				<?php 
+				if(isset($_SESSION['admin']) || isset($_SESSION['user'])){
+					?>
+					<a href="index.php?display=logout">
+						<li class="sub-nav-item <?php echo $loginClassName; ?>" id="logout" onclick="activate('logout')">
+							<img src="resources/login_icon.png"  class="nav-bar-img">
+							Logout
+						</li>
+					</a>
+					<?php
+				}
+				else{
+					?>
+					<a href="index.php?display=login">
+						<li class="sub-nav-item <?php echo $loginClassName; ?>" id="login" onclick="activate('login')">
+							<img src="resources/login_icon.png"  class="nav-bar-img">
+								Login
+						</li>
+					</a>
+					<?php
+
+				}
+				?>
 				<a href="index.php?display=forgetPassword">
 					<li class="sub-nav-item <?php echo $forgetPasswordClassName; ?>" id="forgetPassword" onclick="activate('forgetPassword')">
 						<img src="resources/forgot_password.png"  class="nav-bar-img">
@@ -136,12 +156,16 @@
 				case 'forgetPassword':
 					break;
 				case 'register':
+					displayRegister();
 					break;
 				case 'addproduct':
 					displayAddProduct();
 					break;
 				case 'search':  case 'default' :
 					displaySearch();
+					break;
+				case 'logout':
+					logout();
 					break;
 			}
 		?>	
