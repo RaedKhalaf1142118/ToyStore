@@ -1,3 +1,128 @@
 .customer-registeration-container{
 	padding-top: 135px;
+	background-color: #6be26b;
+	height: 82%;
+	text-align: -webkit-center;
+}
+
+.register-form-container{
+	background-color: white;
+	min-height: 520px;
+	max-width: 500px;
+	margin-top: 50px;
+	margin-left: 50px;
+	box-shadow: 10px 10px 5px rgba(0,0,0,.5);
+	font-family: Arial;
+}
+
+.customer-registeration-form label{
+	padding: 10px 5px;
+	background-color: #80ff80;
+	min-width: 140px;
+	display: inline-block;
+	border-bottom-left-radius: 10px;
+	border-top-left-radius:10px;
+}
+
+.customer-registeration-form [required]{
+	outline: none;
+	border: none;
+	background-color: rgba(153, 153, 102,.6);
+	display: inline-block;
+	width: 250px;
+	height: 40px;
+	border-bottom-right-radius: 10px;
+	border-top-right-radius:10px;
+	margin-top: 10px;
+	font-size: 17px;
+	padding-left: 10px;
+}
+
+.customer-registeration-form h3{
+	color: green;
+	padding-top: 20px;
+}
+
+.submit-btn{
+	margin-top: 20px;
+	padding: 15px 140px;
+	color: white;
+	text-align: center;
+	border: none;
+	font-size:17px;
+}
+
+.btn:hover{
+	cursor: pointer;
+}
+
+.green-btn{
+	background-color: #549c54;
+}
+
+.green-btn:hover{
+	background-color: #5dec5d;
+	color: green;
+}
+
+.hidden{
+	opacity: 0;
+}
+
+.blocked:hover{
+	cursor: no-drop;
+}
+
+.e-account-container{
+	padding-top: 135px;
+	background-color: rgb(190,190,190);
+	height: 82%;
+	text-align: -webkit-center;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+.e-account-form-container{
+	width: 500px;
+	background-color: rgb(36,50,61);
+	height: 350px;
+	margin-top: 100px;
+	box-shadow: 10px 10px 5px rgba(0,0,0,.5);
+	border-radius: 3px;
+}
+
+.e-account-form-container label{
+	color: white;
+	padding-top: 10px;
+	display: inline-block;
+	font-size: 22px;
+}
+
+.e-account-form{
+	padding-top: 20px;
+}
+
+.e-account-form-container td{
+	padding: 10px;
+}
+
+.e-account-input{
+	background-color: rgba(0,0,0,0);
+	border:2px rgb(100,114,123) solid;
+	height: 35px;
+	font-size: 18px;
+	padding-left: 10px;
+	color: white;
+}
+
+.e-account-input:focus{
+	background-color: rgba(0,0,0,0);
+}
+
+.e-account-form-container hr{
+	width: 350px;
+	margin-top: 20px;
+}
+
+#username{
+	width: 466px;
 }

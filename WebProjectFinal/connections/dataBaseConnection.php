@@ -72,4 +72,15 @@
 		$resultSet = mysqli_query($database,"SELECT name FROM category c WHERE c.id = {$categoryId}");
 		return mysqli_fetch_assoc($resultSet)['name'];
 	}
+
+	function getCreditCardByNumber($number){
+		global $database;
+		$resultSet = mysqli_query($database,"SELECT * FROM creditcard c WHERE c.id = {$number}");
+		return mysqli_fetch_array($resultSet)[0];
+	}
+
+	function registerCustomer($name,$address,$birthDate,$email,$telephone,$fax,$username,$userPassword,$id,$creditCardNumber){
+		global $database;
+		mysqli_query($database,"INSERT INTO customer(name,address,dateOfBirth,email,telephone,faxNumber,userName,userPassword,id,creditCard) VALUES ('{$name}','{$address}','{$birthDate}','{$email}','{$telephone}','{$fax}','{$username}','{$userPassword}',{$id},$creditCardNumber)");
+	}
 ?>

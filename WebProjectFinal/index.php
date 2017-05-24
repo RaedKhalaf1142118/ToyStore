@@ -1,5 +1,6 @@
 <?php 
 	session_start();
+	
 	include 'connections/dataBaseConnection.php';
 	include 'components/login.php';
 	include 'components/search.php';
@@ -60,6 +61,7 @@
 	<link rel="stylesheet" type="text/css" href="styles/addProduct.css">
 	<link rel="stylesheet" type="text/css" href="styles/productDescription.css">
 	<link rel="stylesheet" type="text/css" href="styles/register.css">
+	
 </head>
 <body>
 	<header class="main-header-container">
@@ -138,7 +140,7 @@
 					</li>
 				</a>
 				<a href="index.php?display=addproduct">
-					<li onclick="activate('addProduct')" class="sub-nav-item <?php echo $addProductClassName; ?>" id="addProduct">
+					<li onclick="activate('addProduct')" class="sub-nav-item  <?php echo $addProductClassName; ?>" id="addProduct">
 						<img src="resources/add_icon.png"  class="nav-bar-img">
 						Add product
 					</li>
@@ -154,6 +156,7 @@
 					displayLogin();
 					break;
 				case 'forgetPassword':
+					displayForgetPassword();
 					break;
 				case 'register':
 					displayRegister();
@@ -168,13 +171,14 @@
 					logout();
 					break;
 			}
-		?>	
+		?>
 	</div>
 
 	<script type="text/javascript" src="scripts/nav.js"></script>
 	<script type="text/javascript" src="scripts/login.js"></script>
 	<script type="text/javascript" src="scripts/search.js"></script>
 	<script type="text/javascript" src="scripts/addProduct.js"></script>
-	<script type="text/javascript" src="productDescription.js"></script>
+	<script type="text/javascript" src="scripts/productDescription.js"></script>
+	<script type="text/javascript" src="scripts/register.js"></script>
 </body>
 </html>
