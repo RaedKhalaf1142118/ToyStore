@@ -1,0 +1,29 @@
+.addProduct-form{
+	padding-top: 135px;
+	font-family: Arial;
+	font-size: 15px;
+	text-align: -webkit-center;
+}
+
+textarea{
+	max-width: 350px;
+	max-height: 200px;
+}
+
+#size-row-addProduct [type='number'], #targetAge-row-addProduct [type='number']{
+	max-width: 60px;
+}
+
+.addProductErrorMessage {
+	color: red;
+	font-size: 12px;
+	display: inline-block;
+	min-width: 100px;
+}
+
+
+.addProduct-form fieldset{
+	width: 40%;
+	background-color: #aabdb9;
+	margin-top: 5%;
+}

@@ -1,0 +1,70 @@
+.search-container{
+	padding-top: 135px;
+	padding-left: 15%;
+	font-family: Arial;
+}
+
+.search-tools{
+	list-style-type: none;
+	text-align: ceneter;
+	margin:0;
+	margin-top: 4px;
+}
+
+.search-tools li{
+	display: inline-block;
+	padding: 10px 0px;
+	margin: 0px 10px;
+	width: 150px;
+	border-bottom: 4px rgba(0,0,0,0) solid;
+}
+
+.search-tools li:hover{
+	cursor: pointer;
+	background-color: #85e085;
+
+}
+
+.selected-search-tool {
+	border-bottom: 4px green solid !important;
+}
+
+.unselected_search_display{
+	display: none;
+}
+
+.price-search-error-hide{
+	color: rgba(0,0,0,0);
+	font-size: 12px;
+	width: 200px;
+	display: inline-block;
+}
+
+.price-search-error-show{
+	color: red;
+	font-size: 12px;
+	width: 200px;
+	display: inline-block;
+}
+
+.search-result-set{
+	text-align: -webkit-center;
+	margin-top: 3%;
+}
+
+.result-table th{
+	background-color: #398a39;
+	color: white; 
+	padding: 10px;
+	padding-right: 80px;
+}
+
+.result-table tr{
+    border-collapse: collapse; 
+}
+
+
+
+.search-table-row:nth-child(odd){
+	background-color: #ddd;
+}

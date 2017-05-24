@@ -1,0 +1,58 @@
+kw{
+	color: red;
+}
+
+h1 , h2 ,h3 , .inline{
+	padding: 0px;
+	margin: 0px ;
+}
+
+.main-header-container{
+	position: fixed;
+	width: 100%;
+	height: 130px;
+	background-image: url('../resources/header_background.jpg');
+	background-position: left 450px;
+	background-size: 100% 550%;
+}
+
+.header-icon-img-container{
+	float:left;
+}
+
+.header-icon-img{
+	width: 150px;
+	height: 100px;
+}
+
+.header-icon{
+	opacity: .75;
+	margin: 20px 0 0 20px;
+}
+
+.header-icon-title{
+	font-size: 85px;
+	font-family: "Trench", Monaco, monospace;
+	letter-spacing: 30px;
+	color: white;
+}
+
+.header-icon-title-container{
+	cursor: pointer;
+}
+
+.header-icon-title-container{
+	margin-left: 35px;
+	margin-bottom: 30px !important;
+	float: left;
+}
+
+.address-container{
+	float:right;
+	margin: 80px 30px;
+}
+
+.address{
+	color:white;
+	font-family: "Trench", Monaco, monospace;
+}
