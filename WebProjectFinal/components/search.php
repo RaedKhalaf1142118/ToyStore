@@ -2,7 +2,8 @@
 	$isValid;
 	$to;
 	$from;
-
+    $selectedTool;
+    $categoryName ; $ageFrom ; $ageTo ; $newArrivals ; $sales ; $mostWanted;
 	function displaySearchResultTable(){
 		displaySearchTableHeader();
 		displayTableResultSet();
@@ -28,16 +29,26 @@
 	}
 
 	function displayTableResultSet(){
-		global $isValid,$to,$from;
-		if($isValid){
-			$products = getProductsWithPriceRange($to,$from);
+		global $isValid,$to,$from,$selectedTool, $categoryName , $ageFrom , $ageTo , $newArrivals, $sales , $mostWanted;
+		
+		if($selectedTool == 'price'){
+			if($isValid){
+				$products = getProductsWithPriceRange($to,$from);
+				if(sizeof($products) == 0){
+					displayEmptyRow();
+				}else{
+					displayRows($products);
+				}
+			}else{
+				displayEmptyRow();
+			}
+		}else{
+			$products = getProductsByCategory($categoryName,$ageFrom,$ageTo,$newArrivals, $sales,$mostWanted);
 			if(sizeof($products) == 0){
 				displayEmptyRow();
 			}else{
 				displayRows($products);
 			}
-		}else{
-			displayEmptyRow();
 		}
 	}
 	
@@ -70,7 +81,6 @@
 
 	function displayEmptyRow(){
 		?>
-
 		<tr>
 			<td>Empty</td>
 			<td>Empty</td>
@@ -85,10 +95,24 @@
 
 
 	function displaySearch(){
-		global $isValid,$to,$from;
+		global $isValid,$to,$from,$selectedTool, $categoryName , $ageFrom , $ageTo , $newArrivals, $sales , $mostWanted;
 		$isValid = false;
-		$selectedTool = "price";
+		if(isset($_POST['from'])){
+			$selectedTool = "price";
+		}else{
+			$selectedTool = "category";
+		}
 		$from = $to = 0;
+		?>
+		<div class="search-container">
+				<div class="search-header">
+					<ul class="search-tools">
+						<li id="price-search-tool" onclick="switchSearchToolState('price','category')" class="<?php echo $selectedTool == 'price'? 'selected-search-tool':'';?>">Price</li>
+						<li id="category-search-tool" onclick="switchSearchToolState('category','price')" class="<?php echo $selectedTool == 'price'? '':'selected-search-tool' ;?>">Category</li>
+					</ul>
+					<hr>
+				</div>
+		<?php
 		if(isset($_POST['from']) && isset($_POST['to'])){
 			if($_POST['from'] !='' && $_POST['to'] != '' ){
 				if($_POST['from'] < $_POST['to']){
@@ -100,16 +124,25 @@
 			}
 		}
 
-		?>
-			<div class="search-container">
-				<div class="search-header">
-					<ul class="search-tools">
-						<li id="price-search-tool" onclick="switchSearchToolState('price','category')" class="<?php echo $selectedTool == 'price'? 'selected-search-tool':'';?>">Price</li>
-						<li id="category-search-tool" onclick="switchSearchToolState('category','price')" class="<?php echo $selectedTool == 'price'? '':'selected-search-tool' ;?>">Category</li>
-					</ul>
-					<hr>
-				</div>
+		if(isset($_POST['categorySearch'])){
+			$categoryName = $_POST['categorySearch'];
+			$ageFrom = $_POST['ageFromSearch'];
+			$ageTo = $_POST['ageToSearch'];
+			if(isset($_POST['newArrivalsSearch']))
+				$newArrivals = $_POST['newArrivalsSearch'];
+			else
+				$newArrivals = 'off';
+			if(isset($_POST['salesSearch']))
+				$sales = $_POST['salesSearch'];
+			else
+				$sales = 'off';
+			if(isset($_POST['mostWantedSearch']))
+				$mostWanted = $_POST['mostWantedSearch'];
+			else
+				$mostWanted = 'off';
+		}
 
+			?>
 				<div id="price-search-display"  class="<?php echo $selectedTool == 'price'? '':'unselected_search_display' ;?>">
 					<form action="index.php?display=search" method="POST" >
 						<label>From</label>
@@ -125,7 +158,64 @@
 					</form>
 				</div>
 				<div id="category-search-display"  class="<?php echo $selectedTool == 'category'? '':'unselected_search_display' ;?>">
-					<h1>raed</h1>
+					<form action="index.php?display=search" method="POST">
+						<table>
+							<tr>
+								<td>
+									<label>Category Name</label>
+								</td>
+								<td>
+									<select name='categorySearch'>
+										<option>-All-</option>
+										<?php
+											$categories = getAllCategories();
+											while($category = mysqli_fetch_assoc($categories)){
+												$temp = '';
+												if(strcmp($categoryName, $category['name']) == 0)
+													$temp = "selected";
+												echo "<option ".$temp.">{$category['name']}</option>";
+											}
+										?>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label>Age group</label>
+								</td>
+								<td>
+									<input type="number" name="ageFromSearch" placeholder="From Age" value="<?php echo $ageFrom; ?>">
+								</td>
+								<td>
+									<input type="number" name="ageToSearch" placeholder="To Age" value="<?php echo $ageTo; ?>">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<input type="checkbox" name="newArrivalsSearch" <?php echo strcmp( $newArrivals, 'off')==0?"":"checked" ;?> >				
+									<label>New Arrivals</label>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<input type="checkbox" name="salesSearch" <?php echo strcmp( $sales, 'off')==0?"":"checked" ;?>>
+									<label>Sales Items</label>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<input type="checkbox" name="mostWantedSearch" <?php echo strcmp( $mostWanted, 'off')==0?"":"checked" ;?>>
+									<label>Most wanted</label>
+								</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td>
+									<input type="submit" name="submit" value="Search">
+								</td>
+							</tr>
+						</table>
+					</form>
 				</div>
 				<div class="search-result-set">
 					<?php 

@@ -73,6 +73,12 @@
 		return mysqli_fetch_assoc($resultSet)['name'];
 	}
 
+	function getCategoryByName($categoryName){
+			global $database;
+			$resultSet = mysqli_query($database,"SELECT * FROM category c WHERE c.name = '{$categoryName}'");
+			return mysqli_fetch_assoc($resultSet)['id'];
+	}
+
 	function getCreditCardByNumber($number){
 		global $database;
 		$resultSet = mysqli_query($database,"SELECT * FROM creditcard c WHERE c.id = {$number}");
@@ -83,4 +89,59 @@
 		global $database;
 		mysqli_query($database,"INSERT INTO customer(name,address,dateOfBirth,email,telephone,faxNumber,userName,userPassword,id,creditCard) VALUES ('{$name}','{$address}','{$birthDate}','{$email}','{$telephone}','{$fax}','{$username}','{$userPassword}',{$id},$creditCardNumber)");
 	}
+
+	function getProductsByCategory($categoryName,$ageFrom,$ageTo,$newArrivals, $sales,$mostWanted){
+		global $database;
+		$catCont = "";
+		$flag = false;
+		if(strcmp($categoryName,"-All-") != 0){
+			$categoryIdTemp = getCategoryByName($categoryName);
+			$catCont = "where p.categoryId = ".$categoryIdTemp;
+			$flag = true;
+		}
+
+		$ageCont = "";
+		if($ageTo == '' || $ageFrom == ''){
+
+		}else{
+			$flag = true;
+			$ageCont = " p.ageFrom <= ".$ageTo." AND p.ageTo >= ".$ageFrom; 
+			if(strcmp($categoryName,"-All-") != 0){
+				$ageCont = " WHERE ".$ageCont;
+			}
+		}
+
+		$salesCont = '';
+
+		if(strcmp($sales, 'on') == 0){
+			$salesCont = " p.salesPercentage > 0";
+			if($flag == false){
+				$salesCont = " WHERE ".$salesCont;
+			}
+		}
+
+		$newArrivalsCont = "";
+		if(strcmp($newArrivals, 'on') == 0){
+			$newArrivalsCont = " ORDER BY p.dateCreated";
+		}
+		
+		$mostWantedCont = "";
+   
+		if(strcmp( $mostWanted, 'on') == 0){
+			$mostWantedCont = " p.numberOfOrders";
+			if(strcmp($newArrivals, 'on') == 0){
+				$mostWantedCont = " , ".$mostWantedCont;
+			}
+		}
+
+
+		$products = array();
+		$resultSet = mysqli_query($database , "SELECT * FROM product p ".$catCont.$ageCont.$salesCont.$newArrivalsCont.$mostWantedCont);
+		if($resultSet){
+			while($resultRow = mysqli_fetch_assoc($resultSet)){
+				$products[] = $resultRow;
+			}
+		}
+		return $products;
+	} 
 ?>

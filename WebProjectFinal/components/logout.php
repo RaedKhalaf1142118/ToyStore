@@ -2,6 +2,6 @@
 	function logout(){
 		session_unset();
 		session_destroy();
-		displaySearch();
+		header("Refresh:0; url=index.php?display=search");
 	}
 ?>

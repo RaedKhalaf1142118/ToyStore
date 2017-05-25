@@ -8,7 +8,7 @@
 	include 'components/productDescription.php';
 	include 'components/logout.php';
 	include 'components/register.php';
-
+	include 'components/forgetPassword.php';
 	$customerClassName = '';
 	$productClassName = '';
 	$loginClassName = '';

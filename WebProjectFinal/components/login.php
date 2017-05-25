@@ -11,7 +11,7 @@
 			}else{
 				$_SESSION['user'] = 'loged';
 			}
-			displaySearch();
+			header("Refresh:0; url=index.php?display=search");
 		}else{
 			$errorUserNameOrPassword = true;
 			displayLoginForm();
@@ -24,7 +24,7 @@
 	
 	function displayLogin(){
 		if(isset($_SESSION['admin']) || isset($_SESSION['user'])){
-			displaySearch();
+			header("Refresh:0; url=index.php?display=search");
 		}else{
 			if(isset($_POST['username']) && isset($_POST['password'])){
 				if(!empty($_POST['username']) && !empty($_POST['password'])){
