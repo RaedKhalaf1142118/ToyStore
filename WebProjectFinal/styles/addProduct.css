@@ -27,3 +27,7 @@ textarea{
 	background-color: #aabdb9;
 	margin-top: 5%;
 }
+
+.file-chooser {
+	font-size: 12px;
+}

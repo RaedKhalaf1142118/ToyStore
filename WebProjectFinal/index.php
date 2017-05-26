@@ -9,6 +9,7 @@
 	include 'components/logout.php';
 	include 'components/register.php';
 	include 'components/forgetPassword.php';
+
 	$customerClassName = '';
 	$productClassName = '';
 	$loginClassName = '';
@@ -39,8 +40,9 @@
 				$addProductClassName = 'selected';
 				$productClassName = 'selected';
 				break;
+			case 'productDescription':
 			default:
-				$customerClassName = 'selected';
+				$productClassName = 'selected';
 				break;
 		}
 	}else{
@@ -61,6 +63,7 @@
 	<link rel="stylesheet" type="text/css" href="styles/addProduct.css">
 	<link rel="stylesheet" type="text/css" href="styles/productDescription.css">
 	<link rel="stylesheet" type="text/css" href="styles/register.css">
+	<link rel="stylesheet" type="text/css" href="styles/forgetPassword.css">
 	
 </head>
 <body>
@@ -170,6 +173,9 @@
 				case 'logout':
 					logout();
 					break;
+				case 'productDescription':
+					displayProductDescription(isset($_GET['id']));
+					break;
 			}
 		?>
 	</div>
@@ -180,5 +186,6 @@
 	<script type="text/javascript" src="scripts/addProduct.js"></script>
 	<script type="text/javascript" src="scripts/productDescription.js"></script>
 	<script type="text/javascript" src="scripts/register.js"></script>
+	<script type="text/javascript" src="scripts/forgetPassword.js"></script>
 </body>
 </html>

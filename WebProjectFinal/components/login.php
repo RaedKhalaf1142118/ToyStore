@@ -1,15 +1,17 @@
 <?php
 	$errorUserNameOrPassword = false;
+
 	function logIn(){
 		global $errorUserNameOrPassword;
 		$username = $_POST['username'];
 		$password = $_POST['password'];
+
 		$customer = mysqli_fetch_assoc(dataBaseLogin($username,$password));
 		if(sizeof($customer) > 0){
 			if(substr($username, 0, 5 ) === "Admin"){
-				$_SESSION['admin'] = 'loged';
+				$_SESSION['admin'] = $username;
 			}else{
-				$_SESSION['user'] = 'loged';
+				$_SESSION['user'] = $username;
 			}
 			header("Refresh:0; url=index.php?display=search");
 		}else{

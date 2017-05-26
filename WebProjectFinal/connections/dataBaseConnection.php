@@ -90,6 +90,14 @@
 		mysqli_query($database,"INSERT INTO customer(name,address,dateOfBirth,email,telephone,faxNumber,userName,userPassword,id,creditCard) VALUES ('{$name}','{$address}','{$birthDate}','{$email}','{$telephone}','{$fax}','{$username}','{$userPassword}',{$id},$creditCardNumber)");
 	}
 
+	function getCustomerById($id){
+		global $database;
+		$customer = mysqli_query($database,"SELECT * FROM customer c WHERE c.id = {$id}");
+		if($customer){
+			return mysqli_fetch_assoc($customer);
+		}
+	}
+
 	function getProductsByCategory($categoryName,$ageFrom,$ageTo,$newArrivals, $sales,$mostWanted){
 		global $database;
 		$catCont = "";
@@ -143,5 +151,37 @@
 			}
 		}
 		return $products;
-	} 
+	}
+
+	function getProductRank($id){
+		global $database;
+		$resultSet = mysqli_query($database , "SELECT * FROM rankreview rr WHERE rr.productId = {$id}");
+		$sumRanks = 0;
+		$counter = 0;
+		while($row = mysqli_fetch_assoc($resultSet)){
+			$counter++;
+			$sumRanks += $row['rank'];
+		}
+		if($counter == 0){
+			return 0;
+		}
+		return $sumRanks/$counter;
+	}
+
+	function getProductRanksAndReviews($productID){
+		global $database;
+		$ranksReviews = array();
+		$resultSet = mysqli_query($database,"SELECT * FROM rankreview rr WHERE rr.productId = {$productID}");
+		while($row = mysqli_fetch_assoc($resultSet)){
+			$ranksReviews[] = $row;
+		}
+		return $ranksReviews;
+	}
+
+	function addRankReview($productID,$customerUserName,$rank,$review){
+		$customer = getCustomerByUserName($customerUserName);
+		echo "customer is ".$customer['name'];
+		global $database;
+		mysqli_query($database,"INSERT INTO rankreview(customerId,productId,rank,review) VALUES ({$customer['id']},{$productID},{$rank},{$review})");
+	}
 ?>

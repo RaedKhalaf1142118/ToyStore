@@ -7,7 +7,7 @@
 				displayAddProductForm();
 			}
 		}else{
-			displayLogin();
+			header("Refresh:0; url=index.php?display=login");		
 		}
 	}
 
@@ -26,9 +26,32 @@
 		$id = $_POST['id'];
 		$amount = $_POST['amount'];
 
-		$categoryId = explode(" ", $category)[2];
-		addProductToDataBase($name,$description,$price,$categoryId,$sizeX,$sizeY,$sizeZ,$from,$to,$remark,$sale,$id,$amount,"one","Two","Three");
+		try{
+			$i = 1;
+			while($i<=3){
+				$strFilename = $_FILES['image'."$i"]['tmp_name'];
+				$strRealname = $_FILES['image'."$i"]['name'];
+				if(file_exists($strFilename)){
+					if(!getimagesize($strFilename)){
+						$strImgErrorMessag="not an Img";
+						$boolIsOky=1;
+					}
+					else{
+						if (is_uploaded_file($strFilename)){
+							if (move_uploaded_file($strFilename, "images/$strRealname")){
+								rename("images/$strRealname","images/item".$_POST['id']."img$i.png");
+							}
+						}
+					}
+				}
+				$i++;
+			}
+		}catch(Exception $e){
+			
+		}
 
+		$categoryId = explode(" ", $category)[2];
+		addProductToDataBase($name,$description,$price,$categoryId,$sizeX,$sizeY,$sizeZ,$from,$to,$remark,$sale,$id,$amount,"images/item".$_POST['id']."img1.png","images/item".$_POST['id']."img2.png","images/item".$_POST['id']."img3.png");
 		displayProductDescription($id);
 	}	
 
@@ -37,7 +60,7 @@
 			<div class="addProduct-form">
 				<fieldset>
 					<legend>Add Product</legend>
-					<form href="index.php?display=addProduct" method="POST" onkeyup="validateAddProductForm()">
+					<form enctype="multipart/form-data" href="index.php?display=addProduct" method="POST" onkeyup="validateAddProductForm()" enctype="">
 						<table>
 							<tr id="name-row-addProduct">
 								<td>
@@ -144,15 +167,37 @@
 									<span class="addProductErrorMessage" id="idErrorMessage"></span>
 								</td>
 							</tr>
-							<tr id="remark-row-addProduct">
+							<tr id="image1-row-addProduct">
 								<td>
-									<label for="remark">Remark</label>
+									<label for="image1">Image One</label>
 								</td>
 								<td>
-									<input type="text" name="remark" required class="form-control" id="addProduct-form-control-remark">
+									<input onchange="validateAddProductForm()" type="file" name="image1" required class="file-chooser form-control" id="addProduct-form-control-image1" required>
 								</td>
 								<td>
-									<span class="addProductErrorMessage" id="remarkErrorMessage"></span>
+									<span class="addProductErrorMessage" id="image1ErrorMessage"></span>
+								</td>
+							</tr>
+							<tr id="image2-row-addProduct">
+								<td>
+									<label for="image2">Image Two</label>
+								</td>
+								<td>
+									<input onchange="validateAddProductForm()" type="file" name="image2" required class="file-chooser form-control" id="addProduct-form-control-image2" required>
+								</td>
+								<td>
+									<span class="addProductErrorMessage" id="image2ErrorMessage"></span>
+								</td>
+							</tr>
+							<tr id="image3-row-addProduct">
+								<td>
+									<label for="image3">Image Three</label>
+								</td>
+								<td>
+									<input onchange="validateAddProductForm()" type="file" name="image3" required class="file-chooser form-control" id="addProduct-form-control-image3" required>
+								</td>
+								<td>
+									<span class="addProductErrorMessage" id="image3ErrorMessage"></span>
 								</td>
 							</tr>
 							<tr id="sale-row-addProduct">

@@ -1,0 +1,143 @@
+.product-description{
+	padding-top: 130px;
+	text-align: left;
+}
+
+.img-list{
+	list-style-type: none;
+	display: inline-block;
+	float: left;
+}
+
+.img{
+	width: 150px;
+	height: 100px;
+	border: 3px rgba(0,0,0,0) solid;
+}
+
+.img:hover{
+	border: 3px green solid;
+	cursor: pointer;
+}
+
+.img-container{
+	padding-left: 200px;
+	padding-top: 20px;
+}
+
+.selected-img{
+	border: 3px lightblue solid;
+}
+
+.currentImage{
+	float: left;
+	margin-top: 20px;
+	margin-left: 30px;
+}
+
+#img-selected{
+	height: 320px;
+	width: 370px;
+}
+
+.product-description-container{
+    font-family: "Trebuchet MS", Helvetica, sans-serif;	
+}
+
+.product-description-container div{
+	width: 400px;
+}
+
+.product-description-title{
+	margin-left: 40px;
+	float: left;
+}
+
+.remarks{
+	width: 200px;
+	font-size: 14px;
+	color: gray;
+}
+
+.product-description-container hr{
+	margin-left: 50px;
+	margin-top: 10px;
+	width: 350px;
+}
+
+.critical-information{
+	width: 200px;
+	margin-top: 10px;
+	margin-left: 20px;
+	float: left;
+}
+
+.critical-information table{
+	border-collapse: collapse;
+	border: 1px gray solid;
+}
+
+.critical-information td{
+	padding: 10px 40px;
+}
+
+.critical-information tr{
+	border-bottom: 1px gray solid;
+}
+
+.critical-information tr:hover{
+	background-color: rgba(150,150,150,.5);
+}
+
+.critical-information tr td:first-child { 
+    background-color: rgba(100,255,100,.5);
+}
+
+.operations{
+	width: 72% !important;
+	background-color: white;
+	margin-top: 6%;
+	margin-left: 18%;
+	padding-top: 20px;
+	text-align: -webkit-center;
+}
+
+.add-to-chart{
+	width: 150px !important;
+	height: 30px;
+	background-color: rgba(50,200,50,.8);
+	color: white;
+	text-align: -webkit-center;
+	padding-top: 10px;
+	margin-left: 40px;
+	margin-top: 20px;
+}
+
+.add-to-chart:hover{
+	background-color: rgba(50,200,50,.6);
+	cursor: pointer;
+}
+
+.add-to-chart:active{
+	cursor: wait;
+}
+
+.add-to-chart a{
+	color: white;
+}
+
+.operations hr{
+	width: 900px;
+}
+
+.ranks-reviews{
+
+}
+
+.review-submit{
+	width: 90px;
+}
+
+.rank-review{
+	text-align: -webkit-auto;
+}

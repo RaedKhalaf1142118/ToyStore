@@ -61,7 +61,7 @@
 		}
 	}
 
-	function getProductRank(){
+	function getProductRankReview(){
 		// TODO later
 		return "Rank";
 	}
@@ -70,11 +70,11 @@
 		for ($i=0; $i < sizeof($products); $i++) { 
 			echo "<tr class='search-table-row'>";
 			echo "<td>"."<input type='checkbox'>"."</td>";
-			echo "<td>".$products[$i]['productID']."</td>";
+			echo "<td><a href='index.php?display=productDescription&id={$products[$i]['productID']}'>".$products[$i]['productID']." </a></td>";
 			echo "<td>".$products[$i]['price']."</td>";
 			echo "<td>".getCategoryById($products[$i]['categoryId'])."</td>";
 			echo "<td>".getProductAvailability($products[$i])."</td>";
-			echo "<td>".getProductRank($products[$i])."</td>";
+			echo "<td>".getProductRankReview($products[$i])."</td>";
 			echo "<tr>";
 		}
 	}
@@ -153,7 +153,7 @@
 						&nbsp;&nbsp;&nbsp;&nbsp;
 						<input id='price-search-button' type="submit" name="submit" value='search'>
 						<div id="price-search-form-error" class='price-search-error-hide'>
-							<span >from must be less 	than to</span>
+							<span >from must be less than to</span>
 						</div>
 					</form>
 				</div>

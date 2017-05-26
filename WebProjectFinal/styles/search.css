@@ -70,6 +70,10 @@
 
 }
 
+.search-table-row:hover{
+	background-color: rgba(150,150,150,.6);
+}
+
 #category-search-display{
 	text-align: -webkit-center;
 }

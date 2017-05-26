@@ -6,17 +6,66 @@ function validateAddProductForm(){
 	var isTargetAgeValid = validateTargetAgeAddProduct();
 	var isRemarkValid = validateRemarkAddProduct();
 	var isIDValid = validateIDAddProduct();
-	//var isRemarkValid = validateRemarkAddProduct();
 	var isSaleValid = validateSaleAddProduct();
 	var isAmountValid = validateAmountAddProduct();
-
+	var isImagesValid = validateImages();
 	var isAllValid = isNameValid && isDiscriptionValid && isPriceValid && isSizeValid && isTargetAgeValid;
-	isAllValid = isAllValid && isRemarkValid && isIDValid  && isSaleValid && isAmountValid;
+	isAllValid = isImagesValid && isAllValid && isRemarkValid && isIDValid  && isSaleValid && isAmountValid;
 	if(!isAllValid){
 		document.getElementById("submitAddProduct").disabled = true;
 	}else{
 		document.getElementById("submitAddProduct").disabled = false;
 	}
+}
+
+function validateImages(){
+	var imageOne = document.getElementById("addProduct-form-control-image1");
+	if(imageOne.value == ''){
+		return false;
+	}else{
+		var type = imageOne.files[0].type;
+		console.log(type);
+		if(type.indexOf("image") == -1){
+			var errorMessage = document.getElementById("image1ErrorMessage");
+			errorMessage.innerHTML = "Just images";
+			return false;
+		}else{
+			var errorMessage = document.getElementById("image1ErrorMessage");
+			errorMessage.innerHTML = "";
+		}
+	}
+	var imageTwo = document.getElementById("addProduct-form-control-image2");
+	if(imageTwo.value == ''){
+		return false;
+	}else{
+		var type = imageTwo.files[0].type;
+		if(type.indexOf("image") == -1){
+			var errorMessage = document.getElementById("image2ErrorMessage");
+			errorMessage.innerHTML = "Just images";
+			return false;
+		}else{
+			var errorMessage = document.getElementById("image2ErrorMessage");
+			errorMessage.innerHTML = "";
+		}
+	}
+
+	var imageThree = document.getElementById("addProduct-form-control-image3");
+
+	if(imageThree.value == ''){
+		return false;
+	}else{
+		var type = imageThree.files[0].type;
+		if(type.indexOf("image") == -1){
+			var errorMessage = document.getElementById("image3ErrorMessage");
+			errorMessage.innerHTML = "Just images";
+			return false;
+		}else{
+			var errorMessage = document.getElementById("image3ErrorMessage");
+			errorMessage.innerHTML = "";
+		}
+	}
+
+	return true;
 }
 
 function validateNameAddProduct(){
