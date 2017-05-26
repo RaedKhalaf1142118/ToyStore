@@ -1,6 +1,8 @@
 <?php
 	function displayProductDescription(){
 		$id;
+		$isValid = false;
+		$errorMessage = "";
 		if(isset($_GET['id'])){
 			$id = $_GET['id'];
 		}else{
@@ -18,6 +20,23 @@
 				}
 			}else{
 				header("Refresh:0; url=index.php?display=login");	
+			}
+		}
+		if(isset($_GET['addToChart'])){
+			if(isset($_SESSION['user'])){
+				$numberOfOrder = $product['numberOfOrders'];
+				$availabledAmount = $product['availableAmount'];
+
+				if($availabledAmount > 0){
+					orderProduct($product['productID']);
+					$errorMessage = "Successful Order";
+					$isValid = true;
+				}else{
+					$errorMessage = "There is no available Items";
+					$isValid = false;
+				}
+			}else{
+				header("Refresh:0; url=index.php?display=login");
 			}
 		}
 		?>
@@ -122,7 +141,17 @@
 				<div class="operations">
 					<div class="add-to-chart">
 						<a href="index.php?display=productDescription&id=<?php echo $product['productID']; ?>&addToChart=true">
-						Add to chart
+						<?php 
+							if(isset($_GET['addToChart'])){
+								if($isValid){
+									echo $errorMessage;
+								}else{
+									echo $errorMessage;
+								}
+							}else{
+								echo "Add to Chart";
+							}
+						?>
 						</a>
 					</div>
 					<hr>
@@ -139,9 +168,9 @@
     										<legend>By <?php echo $customer['name'];?></legend>
     										<h4> Rank : <?php echo  $review['rank']." Stars";?></h4>
 	    									<p>
-	    										Review 
+	    										Review :
 	    										<?php
-	    											$review['review'];
+	    											echo $review['review'];
 	    										?>
 	    									</p>
     									</fieldset>

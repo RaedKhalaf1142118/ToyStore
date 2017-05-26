@@ -11,6 +11,27 @@
 		}
 	}
 
+	function generateProductID(){
+		$random1 = rand(0,9);
+		$random2 = rand(0,9);
+		$random3 = rand(0,9);
+		$random4 = rand(0,9);
+		$random5 = rand(0,9);
+		$random6 = rand(0,9);
+		$random7 = rand(0,9);
+		$random8 = rand(0,9);
+		$random9 = rand(0,9);
+		$random10 = rand(0,9);
+
+		$random = "".$random1.$random2.$random3.$random4.$random5.$random6.$random6.$random7.$random8.$random9.$random10;
+		$product = getProductById(random);
+		if($product){
+			return generateProductID;
+		}else{
+			return $random;
+		}
+	}
+
 	function validateAddProduct(){
 		$name = $_POST['name'];
 		$description = $_POST['discription'];
@@ -23,7 +44,7 @@
 		$to = $_POST['to'];
 		$remark = $_POST['remark'];
 		$sale = $_POST['sale'];
-		$id = $_POST['id'];
+		$id = generateProductID();
 		$amount = $_POST['amount'];
 
 		try{
@@ -52,7 +73,7 @@
 
 		$categoryId = explode(" ", $category)[2];
 		addProductToDataBase($name,$description,$price,$categoryId,$sizeX,$sizeY,$sizeZ,$from,$to,$remark,$sale,$id,$amount,"images/item".$_POST['id']."img1.png","images/item".$_POST['id']."img2.png","images/item".$_POST['id']."img3.png");
-		displayProductDescription($id);
+		header("Refresh:0; url=index.php?display=productDescription&id=".$id);
 	}	
 
 	function displayAddProductForm(){
@@ -154,17 +175,6 @@
 								</td>
 								<td>
 									<span class="addProductErrorMessage" id="remarkErrorMessage"></span>
-								</td>
-							</tr>
-							<tr id="id-row-addProduct">
-								<td>
-									<label for="id">ID</label>
-								</td>
-								<td>
-									<input type="text" name="id"  required class="form-control" id="addProduct-form-control-ID">
-								</td>
-								<td>
-									<span class="addProductErrorMessage" id="idErrorMessage"></span>
 								</td>
 							</tr>
 							<tr id="image1-row-addProduct">

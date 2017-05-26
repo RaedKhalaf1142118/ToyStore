@@ -52,7 +52,8 @@
 	function getProductById($id){
 		global $database;
 		$resultSet = mysqli_query($database,"SELECT * FROM product where productID = {$id}");
-		return mysqli_fetch_assoc($resultSet);
+		if($resultSet)
+			return mysqli_fetch_assoc($resultSet);
 	}
 
 	function getProductsWithPriceRange($to,$from){
@@ -139,9 +140,10 @@
 			$mostWantedCont = " p.numberOfOrders";
 			if(strcmp($newArrivals, 'on') == 0){
 				$mostWantedCont = " , ".$mostWantedCont;
+			}else{
+				$mostWantedCont = " ORDER BY ".$mostWantedCont." DESC";
 			}
 		}
-
 
 		$products = array();
 		$resultSet = mysqli_query($database , "SELECT * FROM product p ".$catCont.$ageCont.$salesCont.$newArrivalsCont.$mostWantedCont);
@@ -180,8 +182,13 @@
 
 	function addRankReview($productID,$customerUserName,$rank,$review){
 		$customer = getCustomerByUserName($customerUserName);
-		echo "customer is ".$customer['name'];
 		global $database;
-		mysqli_query($database,"INSERT INTO rankreview(customerId,productId,rank,review) VALUES ({$customer['id']},{$productID},{$rank},{$review})");
+		mysqli_query($database,"INSERT INTO rankreview(customerId,productId,rank,review) VALUES ({$customer['id']},{$productID},{$rank},'{$review}')");
 	}
+
+	function orderProduct($productID){
+		global $database;
+		mysqli_query($database,"UPDATE product p SET p.availableAmount = p.availableAmount - 1 , p.numberOfOrders = p.numberOfOrders+1 WHERE p.productID = {$productID}");
+	}
+
 ?>

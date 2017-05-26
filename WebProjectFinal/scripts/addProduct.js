@@ -5,12 +5,11 @@ function validateAddProductForm(){
 	var isSizeValid = validateSizeAddProduct();
 	var isTargetAgeValid = validateTargetAgeAddProduct();
 	var isRemarkValid = validateRemarkAddProduct();
-	var isIDValid = validateIDAddProduct();
 	var isSaleValid = validateSaleAddProduct();
 	var isAmountValid = validateAmountAddProduct();
 	var isImagesValid = validateImages();
 	var isAllValid = isNameValid && isDiscriptionValid && isPriceValid && isSizeValid && isTargetAgeValid;
-	isAllValid = isImagesValid && isAllValid && isRemarkValid && isIDValid  && isSaleValid && isAmountValid;
+	isAllValid = isImagesValid && isAllValid && isRemarkValid && isSaleValid && isAmountValid;
 	if(!isAllValid){
 		document.getElementById("submitAddProduct").disabled = true;
 	}else{

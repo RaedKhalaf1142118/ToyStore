@@ -20,10 +20,10 @@
 				<thead>
 					<th>Select</th>
 					<th>ID</th>
-					<th>Price</th>
+					<th><a href="index.php?display=search&sort=price"> Price </a></th>
 					<th>Category</th>
 					<th>Product Availability</th>
-					<th>Rank</th>
+					<th><a href="index.php?display=search&sort=rank"> Rank</a></th>
 				</thead>
 		<?php
 	}
@@ -52,6 +52,56 @@
 		}
 	}
 	
+	function sortOutPut($products){
+		if(isset($_GET['sort'])){
+			if(isset($_SESSION['searchResult'])){
+				if(is_object($_SESSION)){
+					$products = $_SESSION['searchResult'];
+					switch ($_GET['sort']) {
+						case 'rank':
+							$products = sortRank($products);
+							break;
+						case 'price':
+							$products = sortPrice($products);
+							break;
+					}	
+				}
+			}
+		}
+	}
+
+	function sortRank($products){
+		$tempProducts = array();
+		while(sizeof($products) != 0){
+			$minRank = 0;
+			$minIndex = 0;
+			for ($i=0; $i < sizeof($products); $i++) { 
+				$tempRank = getProductRank($products[$i]['productID']);
+				if($tempRank > $minRank){
+					$minRank = $tempRank;
+					$minIndex = $i;
+				}
+			}
+			$tempProducts[] = array_splice($products, $minIndex,1);
+		}
+		return $tempProducts;
+	}
+
+	function sortPrice($products){
+		$tempProducts = array();
+		while(sizeof($products) != 0){
+			$minPrice = 0;
+			$minIndex = 0;
+			for ($i=0; $i < sizeof($products); $i++) { 
+				if($products[$i]['price'] > $minIndex){
+					$minPrice = $products[$i]['price'];
+					$minIndex = $i;
+				}
+			}
+			$tempProducts[] = array_splice($products, $minIndex,1);
+		}
+		return $tempProducts;
+	}
 
 	function getProductAvailability($product){
 		if($product['availableAmount'] != 0){
@@ -61,12 +111,12 @@
 		}
 	}
 
-	function getProductRankReview(){
-		// TODO later
-		return "Rank";
+	function getProductRankReview($id){
+		return getProductRank($id);
 	}
 
 	function displayRows($products){
+		$_SESSION['searchResult'] = $products;
 		for ($i=0; $i < sizeof($products); $i++) { 
 			echo "<tr class='search-table-row'>";
 			echo "<td>"."<input type='checkbox'>"."</td>";
@@ -74,12 +124,13 @@
 			echo "<td>".$products[$i]['price']."</td>";
 			echo "<td>".getCategoryById($products[$i]['categoryId'])."</td>";
 			echo "<td>".getProductAvailability($products[$i])."</td>";
-			echo "<td>".getProductRankReview($products[$i])."</td>";
+			echo "<td>".getProductRankReview($products[$i]['productID'])."</td>";
 			echo "<tr>";
 		}
 	}
 
 	function displayEmptyRow(){
+		$_SESSION['searchResult'] = 'Empty';
 		?>
 		<tr>
 			<td>Empty</td>
