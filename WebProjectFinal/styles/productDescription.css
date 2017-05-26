@@ -44,9 +44,6 @@
     font-family: "Trebuchet MS", Helvetica, sans-serif;	
 }
 
-.product-description-container div{
-	width: 400px;
-}
 
 .product-description-title{
 	margin-left: 40px;
@@ -111,6 +108,7 @@
 	padding-top: 10px;
 	margin-left: 40px;
 	margin-top: 20px;
+	display: inline-block;
 }
 
 .add-to-chart:hover{

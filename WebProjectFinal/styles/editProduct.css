@@ -1,0 +1,9 @@
+.edit-product-container{
+	margin-left: 15%;
+	text-align: -webkit-center;
+	padding-top: 300px;
+}
+
+.edit-product-container fieldset{
+	width: 400px;
+}

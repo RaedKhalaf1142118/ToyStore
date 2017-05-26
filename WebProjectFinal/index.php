@@ -9,7 +9,9 @@
 	include 'components/logout.php';
 	include 'components/register.php';
 	include 'components/forgetPassword.php';
-
+	include 'components/contactUs.php';
+	include 'components/editProduct.php';
+	
 	$customerClassName = '';
 	$productClassName = '';
 	$loginClassName = '';
@@ -64,7 +66,8 @@
 	<link rel="stylesheet" type="text/css" href="styles/productDescription.css">
 	<link rel="stylesheet" type="text/css" href="styles/register.css">
 	<link rel="stylesheet" type="text/css" href="styles/forgetPassword.css">
-	
+	<link rel="stylesheet" type="text/css" href="styles/contactUs.css">
+	<link rel="stylesheet" type="text/css" href="styles/editProduct.css">
 </head>
 <body>
 	<header class="main-header-container">
@@ -155,6 +158,15 @@
 	<div class="main-display-container">
 		<?php
 			switch ($display) {
+				case 'editProduct':
+					displayEditProduct();
+					break;
+				case 'contactUs':
+					displayContactUs();
+					break;
+				case 'viewContact':
+					displayViewContact();
+					break;
 				case 'login':
 					displayLogin();
 					break;
@@ -187,5 +199,7 @@
 	<script type="text/javascript" src="scripts/productDescription.js"></script>
 	<script type="text/javascript" src="scripts/register.js"></script>
 	<script type="text/javascript" src="scripts/forgetPassword.js"></script>
+	<script type="text/javascript" src="scripts/contactUs.js"></script>
+	<script type="text/javascript" src="scripts/editProduct.js"></script>
 </body>
 </html>

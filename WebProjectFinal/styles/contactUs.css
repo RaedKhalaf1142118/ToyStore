@@ -1,0 +1,16 @@
+.contact-us-container{
+	padding-top: 130px;
+	text-align: -webkit-center;
+}
+
+.contact-us-form-container{
+}
+
+.contact-us-container fieldset{
+	width: 300px;
+}
+
+.contact-us-container textarea{
+	width: 300px;
+	height: 300px;
+}

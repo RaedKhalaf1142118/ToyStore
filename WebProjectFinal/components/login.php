@@ -1,23 +1,47 @@
 <?php
 	$errorUserNameOrPassword = false;
-
 	function logIn(){
 		global $errorUserNameOrPassword;
-		$username = $_POST['username'];
-		$password = $_POST['password'];
-
-		$customer = mysqli_fetch_assoc(dataBaseLogin($username,$password));
-		if(sizeof($customer) > 0){
-			if(substr($username, 0, 5 ) === "Admin"){
-				$_SESSION['admin'] = $username;
-			}else{
-				$_SESSION['user'] = $username;
-			}
-			header("Refresh:0; url=index.php?display=search");
+		if(isset($_SESSION['login-counter'])){
 		}else{
-			$errorUserNameOrPassword = true;
-			displayLoginForm();
+			$_SESSION['login-counter']  = 0;
+			$_SESSION['last-login-time'] = '';
+			$_SESSION['blocked'] = 0;
+			$_SESSION['returnTime'] = time();
 		}
+		if($_SESSION['blocked'] == 1){
+			if($_SESSION['blocked'] == 1 && $_SESSION['returnTime'] <= time()){
+				$_SESSION['blocked'] = 0;
+				$_SESSION['login-counter'] = 0;
+			}
+			displayLoginForm();	
+		}else{
+			$username = $_POST['username'];
+			$password = $_POST['password'];
+			$customer = mysqli_fetch_assoc(dataBaseLogin($username,$password));
+			if(sizeof($customer) > 0){
+				if(substr($username, 0, 5 ) === "Admin"){
+					$_SESSION['admin'] = $username;
+				}else{
+					$_SESSION['user'] = $username;
+				}
+				header("Refresh:0; url=index.php?display=search");
+			}else{
+				$errorUserNameOrPassword = true;
+				$_SESSION['login-counter']++;
+				if($_SESSION['login-counter'] == 3){
+					$_SESSION['login-counter']++;
+					blockLogin();
+				}
+				displayLoginForm();
+			}
+		}
+	}
+
+	function blockLogin(){
+		$_SESSION['blocked'] = 1;
+		$_SESSION['last-login-time'] = time();
+		$_SESSION['returnTime'] = $_SESSION['last-login-time']+900;
 	}
 
 	function displayCustomer($customer){
@@ -51,6 +75,11 @@
 						<tr>
 							<span class="<?php echo $errorUserNameOrPassword?'showWrongInfo':'hideWrongInfo' ?>">
 								Wrong username or password
+							</span>
+						</tr>
+						<tr>
+							<span class="<?php echo $_SESSION['blocked']==1?'showWrongInfo':'hideWrongInfo' ?>">
+								Blocked for 15 min
 							</span>
 						</tr>
 						<tr>

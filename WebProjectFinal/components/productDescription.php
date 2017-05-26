@@ -149,11 +149,22 @@
 									echo $errorMessage;
 								}
 							}else{
-								echo "Add to Chart";
+								echo "Add to Card";
 							}
 						?>
 						</a>
 					</div>
+					<?php
+					if(isset($_SESSION['admin'])){
+						?>
+						<div class="add-to-chart edit-product-btn">
+							<a href="index.php?display=editProduct&id=<?php echo $product['productID']; ?>">
+								Edit Product
+							</a>
+						</div>
+						<?php
+					}
+					?>
 					<hr>
 					<div class="ranks-reviews">
 						Ranks and Reviews

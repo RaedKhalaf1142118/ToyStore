@@ -191,4 +191,33 @@
 		mysqli_query($database,"UPDATE product p SET p.availableAmount = p.availableAmount - 1 , p.numberOfOrders = p.numberOfOrders+1 WHERE p.productID = {$productID}");
 	}
 
+	function addContact($content,$customerId){
+		global $database;
+		$managerID = getManagerID();
+		mysqli_query($database,"INSERT INTO contact(customerId,managerId,message) VALUES ({$customerId},{$managerID},'{$content}')");
+	}
+
+	function getManagerID(){
+		global $database;
+		$resultSet = mysqli_query($database,"SELECT * FROM manager");
+		return mysqli_fetch_assoc($resultSet)['id'];
+	}
+
+	function getContacts(){
+		global $database;
+		$contacts = array();
+
+		$resultSet = mysqli_query($database,"SELECT * FROM contact");
+
+		while($result = mysqli_fetch_assoc($resultSet)){
+			$contacts[] = $result;
+		}w4tr
+
+		return $contacts;
+	}
+
+	function setEditesDB($name,$dis,$price,$id){
+		global $database;
+		mysqli_query($database,"UPDATE product p SET p.name = '{$name}' , p.discription = '{$discription}' , p.price = {$price} WHERE p.productID = {$id}");
+	}
 ?>

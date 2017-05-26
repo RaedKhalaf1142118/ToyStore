@@ -273,6 +273,35 @@
 						displaySearchResultTable();
 					?>
 				</div>
+				<div class="operational-list-container">
+					<ul class="operational-list">
+					<?php
+						if(isset($_SESSION['user'])){
+							?>
+								<a href="index.php?display=contactUs">
+									<li>
+										Contact Us
+									</li>
+								</a>
+							<?php
+						}else if(isset($_SESSION['admin'])){
+							?>
+								<a href="index.php?display=viewContact">
+									<li>
+										view Contact
+									</li>
+								</a>
+							<?php
+						}
+					?>
+						
+						<a href="">
+							<li>
+								create short-list
+							</li>
+						</a>
+					</ul>
+				</div>
 			</div>
 		<?php
 
